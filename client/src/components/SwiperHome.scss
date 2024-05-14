@@ -1,0 +1,23 @@
+.swiper-container {
+  display: flex;
+  // width: 100%;
+  // height: 750px;
+  margin-bottom: 1rem;
+  transition: width 1s ease-out;
+  .swiper {
+    width: 100%;
+    height: 100%;
+    .swiper-wrapper {
+      align-items: center;
+      .swiper-slide {
+        width: auto !important;
+        transition: all 1s ease-out;
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

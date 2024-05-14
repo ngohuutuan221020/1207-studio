@@ -1,0 +1,26 @@
+@font-face {
+  font-family: Square721BT;
+  src: url(./fonts/Square721BT-RomanExtended.otf);
+}
+#root {
+  font-family: Square721BT;
+}
+ 
+html {  
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* height: 100vh; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+ 
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
