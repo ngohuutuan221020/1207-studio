@@ -13,7 +13,10 @@ import { Pagination, FreeMode } from "swiper/modules";
 import { motion } from "framer-motion";
 import imagesData from "images/data";
 
+import { useMediaQuery } from "@mui/material";
+
 export default function SwiperHome() {
+  const isMobile = useMediaQuery("(max-width: 425px)");
   const [idShow, setIdShow] = useState("");
   const [idHeight, setHeight] = useState("");
   const handleShow = (data, event) => {
@@ -52,7 +55,8 @@ export default function SwiperHome() {
                 className="swiper-container"
                 style={{
                   width: idShow === item.id ? "100%" : 0,
-                  height: idShow === item.id ? idHeight : 0,
+                  height:
+                    idShow === item.id ? (isMobile ? "50vh" : idHeight) : 0,
                   marginLeft: idShow === item.id ? 0 : "50%",
                 }}
               >
