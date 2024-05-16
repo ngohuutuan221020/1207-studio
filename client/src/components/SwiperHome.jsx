@@ -53,12 +53,30 @@ export default function SwiperHome() {
               )}
               <div
                 className="swiper-container"
-                style={{
-                  width: idShow === item.id ? "100%" : 0,
-                  height:
-                    idShow === item.id ? (isMobile ? "50vh" : idHeight) : 0,
-                  marginLeft: idShow === item.id ? 0 : "50%",
-                }}
+                style={
+                  isMobile
+                    ? {
+                        width: "100%",
+                        display: idShow === item.id ? "block" : "none",
+                        height:
+                          idShow === item.id
+                            ? isMobile
+                              ? "300px"
+                              : idHeight
+                            : 0,
+                        marginLeft: idShow === item.id ? 0 : "50%",
+                      }
+                    : {
+                        width: idShow === item.id ? "100%" : 0,
+                        height:
+                          idShow === item.id
+                            ? isMobile
+                              ? "300px"
+                              : idHeight
+                            : 0,
+                        marginLeft: idShow === item.id ? 0 : "50%",
+                      }
+                }
               >
                 <Swiper
                   spaceBetween={10}

@@ -8,7 +8,10 @@
     .swiper-wrapper {
       align-items: center;
       .swiper-slide {
-        width: auto !important;
+        width: auto;
+        @media screen and (max-width: 600px) {
+          width: 100%;
+        }
         transition: all 1s ease-out;
         img {
           display: block;
