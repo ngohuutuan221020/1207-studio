@@ -33,6 +33,7 @@ export default function SwiperHome() {
                 <div
                   className="image-preview"
                   style={{
+                    paddingBottom: isMobile ? "0.5rem" : null,
                     textAlign: "center",
                   }}
                 >
