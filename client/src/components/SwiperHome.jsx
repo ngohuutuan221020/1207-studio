@@ -16,7 +16,7 @@ import imagesData from "images/data";
 import { useMediaQuery } from "@mui/material";
 
 export default function SwiperHome() {
-  const isMobile = useMediaQuery("(max-width: 425px)");
+  const isMobile = useMediaQuery("(max-width: 600px)");
   const [idShow, setIdShow] = useState("");
   const [idHeight, setHeight] = useState("");
   const handleShow = (data, event) => {
