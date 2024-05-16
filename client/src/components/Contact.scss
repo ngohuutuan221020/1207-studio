@@ -1,0 +1,64 @@
+@mixin box-shadow($value) {
+  -webkit-box-shadow: $value;
+  -moz-box-shadow: $value;
+  box-shadow: $value;
+}
+.contact3 {
+  color: #8d97ad;
+  font-weight: 300;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #3e4555;
+  }
+
+  .font-weight-medium {
+    font-weight: 500;
+  }
+
+  .card-shadow {
+    @include box-shadow(0px 0px 30px rgba(115, 128, 157, 0.1));
+  }
+
+  .btn-danger-gradiant {
+    background: #4dafff;
+    background: -webkit-linear-gradient(
+      legacy-direction(to right),
+      #4deaff 0%,
+      #5b87ff 100%
+    );
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      from(#4d77ff),
+      to(#5b81ff)
+    );
+    background: -webkit-linear-gradient(left, #4d85ff 0%, #5b81ff 100%);
+    background: -o-linear-gradient(left, #4d68ff 0%, #5b79ff 100%);
+    background: linear-gradient(to right, #4d6eff 0%, #5bb0ff 100%);
+
+    &:hover {
+      background: #5b81ff;
+      background: -webkit-linear-gradient(
+        legacy-direction(to right),
+        #5b81ff 0%,
+        #5b81ff 100%
+      );
+      background: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        from(#5b81ff),
+        to(#5b81ff)
+      );
+      background: -webkit-linear-gradient(left, #5b81ff 0%, #5b81ff 100%);
+      background: -o-linear-gradient(left, #5b81ff 0%, #5b81ff 100%);
+      background: linear-gradient(to right, #5b81ff 0%, #5b81ff 100%);
+    }
+  }
+}

@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Header.scss";
+import { MdMenu } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -19,6 +21,25 @@ const Header = () => {
       ? header.classList.add("sticky")
       : header.classList.remove("sticky");
   };
+  const [showMenu, setShowMenu] = useState(true);
+
+  useEffect(() => {
+    const menuBtn = document.querySelector(".nav-menu-btn");
+    const navigation = document.querySelector(".navigation");
+    menuBtn.addEventListener("click", () => {
+      navigation.classList.add("active");
+    });
+  }, []);
+  const handleClickMenu = () => {
+    if (showMenu) {
+      let navigation = document.querySelector(".navigation");
+      navigation.classList.add("active");
+    } else {
+      let navigation = document.querySelector(".navigation");
+      navigation.classList.remove("active");
+    }
+    setShowMenu(!showMenu);
+  };
   return (
     <div className="header">
       <div className="nav-bar">
@@ -29,6 +50,15 @@ const Header = () => {
           }}
         >
           1207
+        </div>
+        <div
+          className="nav-menu-btn"
+          onClick={() => handleClickMenu()}
+          style={{
+            color: "white",
+          }}
+        >
+          {showMenu ? <MdMenu /> : <MdClose />}
         </div>
         <div className="navigation">
           <div className="nav-items">

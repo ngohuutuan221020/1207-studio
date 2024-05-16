@@ -18,9 +18,54 @@ import image74_1 from "./74/1.jpg"
 import image74_2 from "./74/2.jpg"
 import image74_3 from "./74/3.jpg"
 
+import image75_1 from "./75/1.jpg"
+import image75_2 from "./75/2.jpg"
+import image75_3 from "./75/3.jpg"
+
+import image76_1 from "./76/1.jpg"
+import image76_2 from "./76/2.jpg"
+import image76_3 from "./76/3.jpg"
+import image76_4 from "./76/4.jpg"
+import image76_5 from "./76/5.jpg"
+
+import image77_1 from "./77/1.jpg"
+import image77_2 from "./77/2.jpg"
+import image77_3 from "./77/3.jpg"
+import image77_4 from "./77/4.jpg"
+import image77_5 from "./77/5.jpg"
+
+
 const imagesData =
 
     [
+        {
+            id: 77,
+            image: [
+                image77_1,
+                image77_2,
+                image77_3,
+                image77_4,
+                image77_5,
+            ]
+        },
+        {
+            id: 76,
+            image: [
+                image76_1,
+                image76_2,
+                image76_3,
+                image76_4,
+                image76_5,
+            ]
+        },
+        {
+            id: 75,
+            image: [
+                image75_1,
+                image75_2,
+                image75_3,
+            ]
+        },
         {
             id: 74,
             image: [

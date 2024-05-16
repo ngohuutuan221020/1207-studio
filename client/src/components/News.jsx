@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
+import TopComponent from "./TopComponent";
 
 const News = () => {
-  return <div>News</div>;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  return (
+    <div>
+      <TopComponent />
+      News
+    </div>
+  );
 };
 
 export default News;

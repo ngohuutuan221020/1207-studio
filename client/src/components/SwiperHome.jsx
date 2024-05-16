@@ -15,15 +15,17 @@ import imagesData from "images/data";
 
 export default function SwiperHome() {
   const [idShow, setIdShow] = useState("");
-  const handleShow = (data) => {
+  const [idHeight, setHeight] = useState("");
+  const handleShow = (data, event) => {
     setIdShow(data);
+    setHeight(event.target.clientHeight);
   };
   return (
     <>
       {imagesData &&
-        imagesData.map((item, index) => {
+        imagesData.map((item) => {
           return (
-            <>
+            <React.Fragment key={item.id}>
               {idShow !== item.id && (
                 <div
                   className="image-preview"
@@ -32,9 +34,9 @@ export default function SwiperHome() {
                   }}
                 >
                   <motion.img
-                    initial={{ scale: 0.8 }}
+                    initial={{ scale: 0.7 }}
                     whileInView={{ scale: 1 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.5 }}
                     style={{
                       cursor: "pointer",
                       width: "30%",
@@ -42,7 +44,7 @@ export default function SwiperHome() {
                     }}
                     src={item.image[0]}
                     alt=""
-                    onClick={() => handleShow(item.id)}
+                    onClick={(event) => handleShow(item.id, event)}
                   />
                 </div>
               )}
@@ -50,11 +52,11 @@ export default function SwiperHome() {
                 className="swiper-container"
                 style={{
                   width: idShow === item.id ? "100%" : 0,
-                  height: idShow === item.id ? "750px" : 0,
+                  height: idShow === item.id ? idHeight : 0,
+                  marginLeft: idShow === item.id ? 0 : "50%",
                 }}
               >
                 <Swiper
-                  key={index}
                   spaceBetween={10}
                   centeredSlides={false}
                   slidesPerView={"auto"}
@@ -80,7 +82,7 @@ export default function SwiperHome() {
                   })}
                 </Swiper>
               </div>
-            </>
+            </React.Fragment>
           );
         })}
     </>
