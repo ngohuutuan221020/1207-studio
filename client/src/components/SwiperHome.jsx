@@ -69,12 +69,7 @@ export default function SwiperHome() {
                       }
                     : {
                         width: idShow === item.id ? "100%" : 0,
-                        height:
-                          idShow === item.id
-                            ? isMobile
-                              ? "300px"
-                              : idHeight
-                            : 0,
+                        height: idShow === item.id ? "750px" : 0,
                         marginLeft: idShow === item.id ? 0 : "50%",
                       }
                 }
@@ -89,7 +84,7 @@ export default function SwiperHome() {
                   pagination={{
                     clickable: true,
                   }}
-                  modules={[Pagination, FreeMode]}
+                  modules={[isMobile ? FreeMode : Pagination, FreeMode]}
                   style={{
                     marginBottom: "1rem",
                     "--swiper-navigation-color": "#fff",

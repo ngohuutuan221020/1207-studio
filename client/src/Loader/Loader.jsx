@@ -12,6 +12,7 @@ function PreLoader() {
         <span>2</span>
         <span>0</span>
         <span>7</span>
+        <span>studio</span>
       </div>
     </div>
   );

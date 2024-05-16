@@ -4,10 +4,13 @@ import video from "../video/video.mp4";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import { setControl } from "state";
+import { useMediaQuery } from "@mui/material";
 
 const videoHome = process.env.REACT_APP_VIDEO;
 
 function HomeVideo() {
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const dispatch = useDispatch();
 
   const [isControls, setControls] = useState(false);
@@ -18,7 +21,12 @@ function HomeVideo() {
   };
 
   return (
-    <div className="home-video">
+    <div
+      className="home-video"
+      style={{
+        width: isMobile ? "100%" : "90%",
+      }}
+    >
       <ReactPlayer
         url={videoHome || video}
         loop={true}
