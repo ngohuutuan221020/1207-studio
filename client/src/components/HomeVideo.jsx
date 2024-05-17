@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import "./HomeVideo.scss";
-import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import { setControl } from "state";
 import { useMediaQuery } from "@mui/material";
-
+import IMG from "../assets/videoframe_0.png";
 const videoHome = process.env.REACT_APP_VIDEO;
 
 function HomeVideo() {
@@ -26,16 +25,20 @@ function HomeVideo() {
         width: isMobile ? "100%" : "90%",
       }}
     >
-      <ReactPlayer
-        url={videoHome}
-        loop={true}
-        muted={true}
-        playing={true}
-        width={"100%"}
-        height={"100%"}
+      <video
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+        loop
+        muted
+        autoPlay
         controls={isControls}
-      />
-
+        poster={IMG}
+      >
+        <source src={videoHome} type="video/mp4" />
+      </video>
       <button className="btn" onClick={handleClickBtn}>
         <p>1207</p>
       </button>
