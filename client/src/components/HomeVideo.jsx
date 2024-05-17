@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./HomeVideo.scss";
-import video from "../video/video.mp4";
 import ReactPlayer from "react-player";
 import { useDispatch } from "react-redux";
 import { setControl } from "state";
@@ -28,7 +27,7 @@ function HomeVideo() {
       }}
     >
       <ReactPlayer
-        url={videoHome || video}
+        url={videoHome}
         loop={true}
         muted={true}
         playing={true}
