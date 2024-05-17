@@ -6,7 +6,7 @@ import Layout from "layout";
 import Home from "components/Home";
 import News from "components/News";
 import { useEffect } from "react";
-import PreLoader from "Loader/Loader";
+// import PreLoader from "Loader/Loader";
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <>
-      <PreLoader />
+      {/* <PreLoader /> */}
       <div className="App" >
         <BrowserRouter>
           <Routes>

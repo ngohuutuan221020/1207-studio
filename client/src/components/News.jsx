@@ -6,9 +6,9 @@ const News = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
+    <div className="news-container">
       <TopComponent />
-      News
+      news
     </div>
   );
 };
