@@ -6,6 +6,8 @@ import Layout from "layout";
 import Home from "components/Home";
 import News from "components/News";
 import { useEffect } from "react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import PreLoader from "Loader/Loader";
 
 
@@ -18,6 +20,17 @@ function App() {
   return (
     <>
       <PreLoader />
+      <ToastContainer position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="App" >
         <BrowserRouter>
           <Routes>
@@ -30,8 +43,6 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-
-
       </div>
     </>
   );
