@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import TopComponent from "./TopComponent";
+import Header from "../components/Sections/Header";
+import Projects from "../components/Sections/Projects";
 
 const News = () => {
   useEffect(() => {
@@ -8,7 +10,8 @@ const News = () => {
   return (
     <div className="news-container">
       <TopComponent />
-      news
+      <Header />
+      <Projects />
     </div>
   );
 };

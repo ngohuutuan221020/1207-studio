@@ -25,3 +25,69 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.flexSpaceCenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.extraBold {
+  font-weight: 800!important;
+}
+.font60 {
+  font-size: 3.75rem;
+  line-height: 4.5rem;
+}
+.font13 {
+  font-size: 0.813rem;
+}
+.semiBold {
+  font-weight: 600!important;
+}
+.radius8 {
+  border-radius: 1rem;
+}
+.darkBg {
+  background-color: #0B093B;
+}
+.font15 {
+  font-size: 0.938rem;
+}
+.whiteColor {
+  color: #fff;
+} 
+.orangeColor {
+  color: #F2B300;
+}
+.textRight {
+  text-align: right;
+}
+.lightBg {
+  background-color: #F5F5F5;
+}
+.containerNews {
+  width: 100%;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0px 30px;
+}
+.whiteBg {
+  background-color: #fff;
+}
+.font40 {
+  font-size: 2.5rem;
+}
+.textCenter {
+  text-align: center
+}
+.font12 {
+  font-size: 0.75rem;
+}
+.flexNullCenter {
+  display: flex;
+  align-items: center;
+}
