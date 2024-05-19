@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PreLoader from "Loader/Loader";
+import Tuan from "components/Tuan";
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
               <Route path="/news" element={<News />} />
               <Route path="/contact" element={<Contact />} />
             </Route>
+            <Route path="/ngohuutuan" element={<Tuan />} />
           </Routes>
         </BrowserRouter>
       </div>
