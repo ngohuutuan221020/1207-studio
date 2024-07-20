@@ -1,7 +1,6 @@
 import React from "react";
-
 import styled from "styled-components";
-
+import image1 from "../../assets/1.jpg";
 export default function Header() {
   return (
     <Wrapper id="home" className="containerNews flexSpaceCenter">
@@ -28,7 +27,7 @@ export default function Header() {
         <ImageWrapper>
           <Img
             className="radius8"
-            src={"https://www.1207studio.com/images/1207/71/1.jpg"}
+            src={image1}
             alt="office"
             style={{
               zIndex: 9,

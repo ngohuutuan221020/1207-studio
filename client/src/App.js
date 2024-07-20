@@ -6,22 +6,23 @@ import Layout from "layout";
 import Home from "components/Home";
 import News from "components/News";
 import { useEffect } from "react";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import PreLoader from "Loader/Loader";
 import Tuan from "components/Tuan";
-
+import UploadProject from "components/UploadProject";
 
 function App() {
-
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
       <PreLoader />
-      <ToastContainer position="top-right"
+      <ToastContainer
+        position="top-right"
         autoClose={1000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -32,7 +33,7 @@ function App() {
         pauseOnHover
         theme="light"
       />
-      <div className="App" >
+      <div className="App">
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
@@ -43,6 +44,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
             </Route>
             <Route path="/ngohuutuan" element={<Tuan />} />
+            <Route path="/manage" element={<UploadProject />} />
           </Routes>
         </BrowserRouter>
       </div>

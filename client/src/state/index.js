@@ -1,19 +1,28 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAllProject } from "service";
+
+export const fetchProjects = createAsyncThunk(
+  "global/fetchProjects",
+  async () => {
+    const response = await getAllProject();
+    return response.data.data;
+  }
+);
 
 const initialState = {
-  control: "yes",
+  dataProject: [],
 };
 
 export const globalSlice = createSlice({
   name: "global",
   initialState,
-  reducers: {
-    setControl: (state) => {
-      state.control = state.control === "yes" ? "no" : "yes";
-    },
+  extraReducers: (builder) => {
+    builder.addCase(fetchProjects.fulfilled, (state, action) => {
+      state.dataProject = action.payload;
+    });
   },
 });
 
-export const { setControl } = globalSlice.actions;
+// export const {  } = globalSlice.actions;
 
 export default globalSlice.reducer;

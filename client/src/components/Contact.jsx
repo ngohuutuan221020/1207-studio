@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "./Contact.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TopComponent from "./TopComponent";
-import IMG from "../images/75/3.jpg";
+import IMG from "../assets/3.jpg";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

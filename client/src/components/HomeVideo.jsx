@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "./HomeVideo.scss";
-import { useDispatch } from "react-redux";
-import { setControl } from "state";
+// import { useDispatch } from "react-redux";
+// import { setControl } from "state";
 import { useMediaQuery } from "@mui/material";
 import IMG from "../assets/videoframe_0.png";
 const videoHome = process.env.REACT_APP_VIDEO;
@@ -9,14 +9,14 @@ const videoHome = process.env.REACT_APP_VIDEO;
 function HomeVideo() {
   const isMobile = useMediaQuery("(max-width: 600px)");
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const [isControls, setControls] = useState(false);
+  // const [isControls, setControls] = useState(false);
 
-  const handleClickBtn = () => {
-    setControls(!isControls);
-    dispatch(setControl());
-  };
+  // const handleClickBtn = () => {
+  //   setControls(!isControls);
+  //   dispatch(setControl());
+  // };
 
   return (
     <div
@@ -34,14 +34,10 @@ function HomeVideo() {
         loop
         muted
         autoPlay
-        controls={isControls}
         poster={IMG}
       >
         <source src={videoHome} type="video/mp4" />
       </video>
-      <button className="btn" onClick={handleClickBtn}>
-        <p>1207</p>
-      </button>
     </div>
   );
 }

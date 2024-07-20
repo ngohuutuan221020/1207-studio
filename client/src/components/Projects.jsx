@@ -3,21 +3,48 @@ import TopComponent from "./TopComponent";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import FetchData from "./FetchData";
+import { Buffer } from "buffer";
 import { HashLink } from "react-router-hash-link";
-
+// import { getAllProject } from "service";
+import { useSelector } from "react-redux";
+import imageNull from "../assets/3.jpg";
 const Projects = () => {
-  const imagesData = FetchData();
+  // const [dataProject, setDataProject] = useState([]);
 
   const [search, setSearch] = useState("");
+
+  // const handleGetAllProject = useCallback(async () => {
+  //   try {
+  //     const response = await getAllProject();
+  //     if (response.status === 200) {
+  //       setDataProject(response.data.data);
+  //     }
+  //   } catch (error) {
+  //     console.error("UploadProject ~ error:", error);
+  //   }
+  // }, []);
+
+  const removeAccents = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  };
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
+  // useEffect(() => {
+  //   handleGetAllProject();
+  // }, [handleGetAllProject]);
+
+  const dataProject = useSelector((state) => state.global.dataProject);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <div className="project-container">
       <TopComponent />
@@ -40,9 +67,15 @@ const Projects = () => {
         </div>
       </nav>
       <Row xs={1} md={3} className="g-4 m-3">
-        {imagesData
+        {dataProject
           .filter((item) => {
-            return search === "" || item.id.toString().includes(search);
+            return (
+              search === "" ||
+              removeAccents(item.name.toString()).includes(
+                removeAccents(search)
+              ) ||
+              item.id.toString().includes(search)
+            );
           })
           .map((item, index) => (
             <Col key={index}>
@@ -55,10 +88,18 @@ const Projects = () => {
                     objectPosition: "center",
                     borderRadius: "0.5rem",
                   }}
-                  src={`https://www.1207studio.com/images/1207/${item.id}/1.jpg`}
+                  src={
+                    item?.thumbnail === null
+                      ? imageNull
+                      : new Buffer.from(item?.thumbnail, "base64").toString(
+                          "binary"
+                        )
+                  }
                 />
                 <Card.Body>
-                  <Card.Title>Project {item.id}</Card.Title>
+                  <Card.Title>
+                    #{item.id} {item.name}
+                  </Card.Title>
                   <Card.Text>
                     <HashLink
                       to={`/home/#${item.id}`}

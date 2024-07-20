@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "studiocom_1207",
+    "password": "123123123",
+    "database": "studiocom_1207",
+    "host": "123.31.29.134",
+    "dialect": "mysql",
+    "logging": false,
+    "timezone": "+07:00"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

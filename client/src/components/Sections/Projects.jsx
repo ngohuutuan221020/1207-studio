@@ -4,6 +4,8 @@ import styled from "styled-components";
 import ProjectBox from "../Elements/ProjectBox";
 // Assets
 
+import ProjectImg1 from "../../assets/project1.jpg";
+import ProjectImg2 from "../../assets/project2.jpg";
 import ProjectImg3 from "../../assets/ProjectImg3.jpg";
 import AddImage2 from "../../assets/bgproject.jpg";
 import { HashLink } from "react-router-hash-link";
@@ -50,14 +52,14 @@ export default function Projects() {
           <div className="row textCenter">
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
               <ProjectBox
-                img={"https://www.1207studio.com/images/1207/65/1.jpg"}
+                img={ProjectImg1}
                 title="CHARLI VILLA"
                 text="Open architecture is a design style that creates a connection between indoor and outdoor spaces. Ventilation and natural light bring many new experiences to the living space."
               />
             </div>
             <div className="col-xs-12 col-sm-4 col-md-4 col-lg-4">
               <ProjectBox
-                img={"https://www.1207studio.com/images/1207/63/1.jpg"}
+                img={ProjectImg2}
                 title="MEDITATION CENTER"
                 text="Buddhism must be associated with daily life, with your pain and the pain of those around you. You must learn how to help an injured child while maintaining mindful breathing. You must keep yourself from getting lost in the action. Action must go with meditation"
               />
