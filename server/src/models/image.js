@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   Image.init(
     {
       projectId: DataTypes.INTEGER,
-      image: DataTypes.BLOB("long"),
+      image: DataTypes.STRING,
     },
     {
       sequelize,

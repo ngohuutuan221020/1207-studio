@@ -1,21 +1,19 @@
-import React, { useState, useCallback, useMemo } from "react";
-import { Buffer } from "buffer";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+import React, { useCallback, useMemo, useState } from "react";
 
 import "./SwiperHome.scss";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import imageNull from "../assets/3.jpg";
-import { Pagination, FreeMode } from "swiper/modules";
 import { motion } from "framer-motion";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import { FreeMode, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import imageNull from "../assets/3.jpg";
 
 import { useMediaQuery } from "@mui/material";
 
-import { getProjectId } from "service";
 import { useSelector } from "react-redux";
+import { getProjectId } from "service";
 
 const SwiperHome = React.memo(() => {
   // const [dataProject, setDataProject] = useState([]);
@@ -25,10 +23,6 @@ const SwiperHome = React.memo(() => {
   // eslint-disable-next-line no-unused-vars
   const [idHeight, setHeight] = useState("");
   const cache = useMemo(() => ({}), []);
-
-  const handleImageLoad = useCallback(async (event, dataId) => {
-    // Xử lý logic của bạn ở đây
-  }, []);
 
   const handleShow = useCallback(
     async (data, event) => {
@@ -83,19 +77,12 @@ const SwiperHome = React.memo(() => {
                     initial={{ scale: 0.7 }}
                     whileInView={{ scale: 1 }}
                     transition={{ duration: 0.5 }}
-                    onLoad={(event) => handleImageLoad(event, item.id)}
                     style={{
                       cursor: "pointer",
                       width: "30%",
                       height: "auto",
                     }}
-                    src={
-                      item?.thumbnail === null
-                        ? imageNull
-                        : new Buffer.from(item?.thumbnail, "base64").toString(
-                            "binary"
-                          )
-                    }
+                    src={item?.thumbnail === null ? imageNull : item?.thumbnail}
                     alt=""
                     onClick={(event) => handleShow(item.id, event)}
                   />
@@ -124,7 +111,6 @@ const SwiperHome = React.memo(() => {
                   slidesPerView={"auto"}
                   grabCursor={true}
                   freeMode={true}
-                  lazy={{ loadPrevNext: true }}
                   pagination={{
                     clickable: true,
                   }}
@@ -137,17 +123,10 @@ const SwiperHome = React.memo(() => {
                 >
                   {dataImage &&
                     dataImage.map((data, index) => {
-                      let imageURL = new Buffer.from(
-                        data?.image,
-                        "base64"
-                      ).toString("binary");
+                      let imageURL = data?.image;
                       return (
                         <SwiperSlide key={index}>
-                          <LazyLoadImage
-                            className="image-slide"
-                            src={imageURL}
-                            alt=""
-                          />
+                          <img className="image-slide" src={imageURL} alt="" />
                         </SwiperSlide>
                       );
                     })}

@@ -1,7 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models/index");
-const { where } = require("sequelize");
+
+const cloudinary = require("cloudinary").v2;
+const upload = require("../middleware/multer");
+
+require("dotenv").config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+const compressImage = (img) => cloudinary.url(img, { quality: 60 });
 
 router.get("/get-project", async (req, res) => {
   try {
@@ -23,15 +36,24 @@ router.get("/get-project", async (req, res) => {
   }
 });
 
-router.post("/upload-project", async (req, res) => {
+router.post("/upload-project", upload.array("images"), async (req, res) => {
+  const { data } = req.body;
   try {
-    const { data } = req.body;
+    const images = data.images;
+
+    const imageURL = [];
+    for (const image of images) {
+      const result = await cloudinary.uploader.upload(image, {
+        resource_type: "auto",
+      });
+      imageURL.push(result.secure_url);
+    }
     const createdProject = await db.Project.create({
       name: data.name,
-      thumbnail: data.images[0],
+      thumbnail: imageURL[0],
     });
     if (createdProject) {
-      const dataImage = data.images.map((image) => ({
+      const dataImage = imageURL.map((image) => ({
         projectId: createdProject.id,
         image,
       }));
@@ -42,10 +64,20 @@ router.post("/upload-project", async (req, res) => {
           message: "Project created successfully",
           data: createdProject,
         });
+      } else {
+        res.status(500).json({
+          status: 500,
+          message: "Failed to create images",
+        });
       }
     }
   } catch (error) {
-    res.status(500).send({ message: "Upload failed" });
+    console.error("Error uploading project:", error);
+    res.status(500).json({
+      status: 500,
+      message: "Internal Server Error",
+      error: error.message,
+    });
   }
 });
 
@@ -94,7 +126,7 @@ router.get("/get-project-id/:id", async (req, res) => {
       raw: true,
       nest: true,
     });
-    console.log("🚀 ~ router.get ~ project:", project);
+
     if (project) {
       res.json({
         status: 200,

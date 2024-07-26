@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
   Project.init(
     {
       name: DataTypes.STRING,
-      thumbnail: DataTypes.BLOB("long"),
+      thumbnail: DataTypes.STRING,
+      cloudinary_id: DataTypes.STRING,
     },
     {
       sequelize,

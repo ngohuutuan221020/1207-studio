@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import TopComponent from "./TopComponent";
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import { Buffer } from "buffer";
 import { HashLink } from "react-router-hash-link";
+import TopComponent from "./TopComponent";
 // import { getAllProject } from "service";
 import { useSelector } from "react-redux";
 import imageNull from "../assets/3.jpg";
@@ -79,42 +78,33 @@ const Projects = () => {
           })
           .map((item, index) => (
             <Col key={index}>
-              <Card>
-                <Card.Img
-                  variant="top"
-                  style={{
-                    height: "20rem",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                    borderRadius: "0.5rem",
-                  }}
-                  src={
-                    item?.thumbnail === null
-                      ? imageNull
-                      : new Buffer.from(item?.thumbnail, "base64").toString(
-                          "binary"
-                        )
-                  }
-                />
-                <Card.Body>
-                  <Card.Title>
-                    #{item.id} {item.name}
-                  </Card.Title>
-                  <Card.Text>
-                    <HashLink
-                      to={`/home/#${item.id}`}
-                      style={{
-                        color: "black",
-                        textDecoration: "none",
-                        letterSpacing: "0.05rem",
-                        cursor: "pointer",
-                      }}
-                    >
-                      View
-                    </HashLink>
-                  </Card.Text>
-                </Card.Body>
-              </Card>
+              <HashLink
+                to={`/home/#${item.id}`}
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                  letterSpacing: "0.05rem",
+                  cursor: "pointer",
+                }}
+              >
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    style={{
+                      height: "20rem",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                      borderRadius: "0.5rem",
+                    }}
+                    src={item?.thumbnail === null ? imageNull : item?.thumbnail}
+                  />
+                  <Card.Body>
+                    <Card.Title>
+                      #{item.id} {item.name}
+                    </Card.Title>
+                  </Card.Body>
+                </Card>
+              </HashLink>
             </Col>
           ))}
       </Row>

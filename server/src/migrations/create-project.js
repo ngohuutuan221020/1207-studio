@@ -12,7 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       thumbnail: {
-        type: Sequelize.BLOB("long"),
+        type: Sequelize.STRING,
+      },
+      cloudinary_id: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

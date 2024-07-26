@@ -9,7 +9,6 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import PreLoader from "Loader/Loader";
 import Tuan from "components/Tuan";
 import UploadProject from "components/UploadProject";
 
@@ -20,7 +19,6 @@ function App() {
 
   return (
     <>
-      <PreLoader />
       <ToastContainer
         position="top-right"
         autoClose={1000}

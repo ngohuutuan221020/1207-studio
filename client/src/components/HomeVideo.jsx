@@ -4,7 +4,8 @@ import "./HomeVideo.scss";
 // import { setControl } from "state";
 import { useMediaQuery } from "@mui/material";
 import IMG from "../assets/videoframe_0.png";
-const videoHome = process.env.REACT_APP_VIDEO;
+import videoHome from "../assets/video-bg.mp4";
+// const videoHome = process.env.REACT_APP_VIDEO;
 
 function HomeVideo() {
   const isMobile = useMediaQuery("(max-width: 600px)");

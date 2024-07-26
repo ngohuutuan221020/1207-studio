@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { uploadProject, getAllProject, deleteProject } from "service";
-import { toast } from "react-toastify";
-import Spinner from "react-bootstrap/Spinner";
-import moment from "moment";
-import Accordion from "react-bootstrap/Accordion";
-import { Buffer } from "buffer";
 import imageCompression from "browser-image-compression";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import Accordion from "react-bootstrap/Accordion";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Spinner from "react-bootstrap/Spinner";
+import { toast } from "react-toastify";
+import { deleteProject, getAllProject, uploadProject } from "service";
 import imageNull from "../assets/3.jpg";
 
 const UploadProject = () => {
@@ -28,7 +27,7 @@ const UploadProject = () => {
         setLoadingData(false);
       }
     } catch (error) {
-      console.error("UploadProject ~ error:", error);
+      console.error("GetAllProject ~ error:", error);
     }
   };
 
@@ -45,18 +44,12 @@ const UploadProject = () => {
 
     const compressedFiles = await Promise.all(
       files.map(async (file) => {
-        const options = {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1920,
-          useWebWorker: true,
-        };
         try {
-          const compressedFile = await imageCompression(file, options);
+          const compressedFile = await imageCompression(file);
           const reader = new FileReader();
           return new Promise((resolve, reject) => {
-            reader.onloadend = () => {
-              resolve(reader.result);
-            };
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
             reader.readAsDataURL(compressedFile);
           });
         } catch (error) {
@@ -143,6 +136,17 @@ const UploadProject = () => {
         </Col>
       </Row>
       <div>
+        <Col
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            padding: "0.5rem 0",
+          }}
+        >
+          <div>Images: {base64Images.length}</div>
+          <Button onClick={() => setBase64Images([])}>Reset</Button>
+        </Col>
         {base64Images.length > 0 && (
           <div
             style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
@@ -192,12 +196,7 @@ const UploadProject = () => {
                     >
                       <img
                         src={
-                          item?.thumbnail === null
-                            ? imageNull
-                            : new Buffer.from(
-                                item?.thumbnail,
-                                "base64"
-                              ).toString("binary")
+                          item?.thumbnail === null ? imageNull : item?.thumbnail
                         }
                         alt={`upload-${index}`}
                         width="auto"
