@@ -1,6 +1,7 @@
 import imageCompression from "browser-image-compression";
+import TopComponent from "components/TopComponent";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -9,7 +10,6 @@ import Row from "react-bootstrap/Row";
 import Spinner from "react-bootstrap/Spinner";
 import { toast } from "react-toastify";
 import { deleteProject, getAllProject, uploadProject } from "service";
-import imageNull from "../assets/3.jpg";
 
 const UploadProject = () => {
   const [projectName, setProjectName] = useState("");
@@ -17,6 +17,9 @@ const UploadProject = () => {
   const [dataProject, setDataProject] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
+
+  const [validated, setValidated] = useState(false);
+  const fileInputRef = useRef(null);
 
   const handleGetAllProject = async () => {
     setLoadingData(true);
@@ -29,6 +32,7 @@ const UploadProject = () => {
     } catch (error) {
       console.error("GetAllProject ~ error:", error);
     }
+    setLoadingData(false);
   };
 
   useEffect(() => {
@@ -40,12 +44,17 @@ const UploadProject = () => {
   };
 
   const handleFileChange = async (event) => {
+    setLoading(true);
     const files = Array.from(event.target.files);
 
     const compressedFiles = await Promise.all(
       files.map(async (file) => {
+        const options = {
+          maxSizeMB: 1,
+          useWebWorker: true,
+        };
         try {
-          const compressedFile = await imageCompression(file);
+          const compressedFile = await imageCompression(file, options);
           const reader = new FileReader();
           return new Promise((resolve, reject) => {
             reader.onloadend = () => resolve(reader.result);
@@ -62,6 +71,7 @@ const UploadProject = () => {
       ...prevBase64Images,
       ...compressedFiles,
     ]);
+    setLoading(false);
   };
 
   const handleUpload = async () => {
@@ -70,111 +80,139 @@ const UploadProject = () => {
       const response = await uploadProject(projectName, base64Images);
 
       if (response.status === 200) {
-        setProjectName("");
-        setBase64Images([]);
-
-        toast.success("Nhập thành công");
+        toast.success("Success");
+        handleResetFileInput();
         handleGetAllProject();
       }
     } catch (error) {
-      toast.error("Nhập khong thành công");
+      toast.error("Error");
       console.error("UploadProject ~ error:", error);
     }
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
   const handleDeleteProject = async (id) => {
     try {
       await deleteProject(id);
-      toast.success("Xóa thành công");
+      toast.success("Success");
       handleGetAllProject();
     } catch (error) {
-      toast.error("Xóa không thành công: " + error.message);
+      toast.error("Error" + error.message);
     }
   };
+  const handleResetFileInput = () => {
+    setBase64Images([]);
+    setProjectName("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
+    const form = event.currentTarget;
+    if (form.checkValidity() === true) {
+      handleUpload();
+    }
+    setValidated(true);
+  };
   return (
-    <section
-      className="w-100 px-4 py-5"
-      style={{
-        backgroundColor: "#9de2ff",
-        minHeight: "100vh",
-      }}
-    >
-      <Row className="justify-content-md">
-        <Col sm={8}>
-          <Form.Group className="mb-3">
-            <Form.Label>Project Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter project name"
-              onChange={handleProjectName}
-              value={projectName}
-            />
-          </Form.Group>
-        </Col>
-        <Form.Label>Multiple files input</Form.Label>
-        <Col sm={8}>
-          <Form.Group controlId="formFileMultiple" className="mb-3">
-            <Form.Control type="file" multiple onChange={handleFileChange} />
-          </Form.Group>
-        </Col>
-        <Col sm={4}>
-          <Button variant="primary" onClick={handleUpload} disabled={loading}>
-            {loading ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
+    <div className="manage-container">
+      <TopComponent />
+      <section
+        className="w-100 px-4 py-5"
+        style={{
+          backgroundColor: "#9de2ff",
+          minHeight: "100vh",
+        }}
+      >
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3" style={{ alignItems: "flex-end", gap: "1rem" }}>
+            <Form.Group as={Col} md={3}>
+              <Form.Label>Project Name</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                placeholder="Enter project name"
+                onChange={handleProjectName}
+                value={projectName}
               />
-            ) : (
-              "Upload"
-            )}
-          </Button>
-        </Col>
-      </Row>
-      <div>
-        <Col
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "1rem",
-            padding: "0.5rem 0",
-          }}
-        >
-          <div>Images: {base64Images.length}</div>
-          <Button onClick={() => setBase64Images([])}>Reset</Button>
-        </Col>
-        {base64Images.length > 0 && (
-          <div
-            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+            </Form.Group>
+
+            <Form.Group as={Col} md={6}>
+              <Form.Label>Multiple files input</Form.Label>
+              <Form.Control
+                required
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                multiple
+                onChange={handleFileChange}
+              />
+            </Form.Group>
+
+            <Form.Group as={Col} md={2}>
+              <Button type="submit" variant="primary" disabled={loading}>
+                {loading ? (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  "Upload"
+                )}
+              </Button>
+            </Form.Group>
+          </Row>
+        </Form>
+        <div>
+          <Col
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              padding: "0.5rem 0",
+            }}
           >
-            {base64Images.map((base64, index) => (
-              <div key={index}>
-                <img
-                  src={base64}
-                  alt={`upload-${index}`}
-                  width="auto"
-                  height="100px"
-                  style={{ marginRight: "5px", marginBottom: "5px" }}
-                />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <Form.Label>PROJECT</Form.Label>{" "}
-      {loadingData ? (
-        <Spinner
-          as="span"
-          animation="border"
-          size="sm"
-          role="status"
-          aria-hidden="true"
-        />
-      ) : (
+            <div>Images: {base64Images.length}</div>
+            <Button onClick={handleResetFileInput}>Reset</Button>
+          </Col>
+          {base64Images.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
+              {base64Images.map((base64, index) => (
+                <div key={index}>
+                  <img
+                    src={base64}
+                    alt={`upload-${index}`}
+                    width="auto"
+                    height="100px"
+                    style={{ marginRight: "5px", marginBottom: "5px" }}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <Form.Label>PROJECT</Form.Label>
+        {loadingData ? (
+          <Spinner
+            as="span"
+            animation="border"
+            size="sm"
+            role="status"
+            aria-hidden="true"
+          />
+        ) : null}
         <div>
           {dataProject.length > 0 && (
             <Accordion defaultActiveKey="0">
@@ -195,9 +233,7 @@ const UploadProject = () => {
                       }}
                     >
                       <img
-                        src={
-                          item?.thumbnail === null ? imageNull : item?.thumbnail
-                        }
+                        src={item?.thumbnail}
                         alt={`upload-${index}`}
                         width="auto"
                         height="100px"
@@ -206,8 +242,11 @@ const UploadProject = () => {
                           marginBottom: "5px",
                         }}
                       />
-                      Created At:{" "}
-                      {moment(item.createdAt).utc().format("DD-MM-YYYY")}
+                      <div>Images: {item.Images.length}</div>
+                      <div>
+                        Created At:{" "}
+                        {moment(item.createdAt).utc().format("DD-MM-YYYY")}
+                      </div>
                       <Button
                         variant="primary"
                         onClick={() => handleDeleteProject(item.id)}
@@ -222,8 +261,8 @@ const UploadProject = () => {
             </Accordion>
           )}
         </div>
-      )}
-    </section>
+      </section>
+    </div>
   );
 };
 

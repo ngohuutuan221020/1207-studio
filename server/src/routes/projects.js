@@ -20,6 +20,7 @@ router.get("/get-project", async (req, res) => {
   try {
     let projects = await db.Project.findAll({
       order: [["id", "DESC"]],
+      include: [db.Image],
     });
 
     res.json({

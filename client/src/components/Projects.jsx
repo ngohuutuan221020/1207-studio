@@ -4,24 +4,11 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import { HashLink } from "react-router-hash-link";
 import TopComponent from "./TopComponent";
-// import { getAllProject } from "service";
+
 import { useSelector } from "react-redux";
 import imageNull from "../assets/3.jpg";
 const Projects = () => {
-  // const [dataProject, setDataProject] = useState([]);
-
   const [search, setSearch] = useState("");
-
-  // const handleGetAllProject = useCallback(async () => {
-  //   try {
-  //     const response = await getAllProject();
-  //     if (response.status === 200) {
-  //       setDataProject(response.data.data);
-  //     }
-  //   } catch (error) {
-  //     console.error("UploadProject ~ error:", error);
-  //   }
-  // }, []);
 
   const removeAccents = (str) => {
     return str
@@ -33,10 +20,6 @@ const Projects = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-
-  // useEffect(() => {
-  //   handleGetAllProject();
-  // }, [handleGetAllProject]);
 
   const dataProject = useSelector((state) => state.global.dataProject);
 
@@ -51,6 +34,7 @@ const Projects = () => {
         <div
           className="container-fluid"
           style={{
+            marginTop: "1rem",
             justifyContent: "flex-end",
           }}
         >
@@ -100,7 +84,7 @@ const Projects = () => {
                   />
                   <Card.Body>
                     <Card.Title>
-                      #{item.id} {item.name}
+                      #{item.id} Project Name: {item.name}
                     </Card.Title>
                   </Card.Body>
                 </Card>

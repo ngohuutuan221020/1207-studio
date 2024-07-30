@@ -16,10 +16,10 @@ import { useSelector } from "react-redux";
 import { getProjectId } from "service";
 
 const SwiperHome = React.memo(() => {
-  // const [dataProject, setDataProject] = useState([]);
   const [dataImage, setDataImage] = useState([]);
   const isMobile = useMediaQuery("(max-width: 600px)");
   const [idShow, setIdShow] = useState("");
+
   // eslint-disable-next-line no-unused-vars
   const [idHeight, setHeight] = useState("");
   const cache = useMemo(() => ({}), []);
@@ -41,29 +41,14 @@ const SwiperHome = React.memo(() => {
     [cache]
   );
 
-  // const handleGetAllProject = useCallback(async () => {
-  //   try {
-  //     const response = await getAllProject();
-  //     if (response.status === 200) {
-  //       setDataProject(response.data.data);
-  //     }
-  //   } catch (error) {
-  //     console.error("UploadProject ~ error:", error);
-  //   }
-  // }, []);
-
   const dataProject = useSelector((state) => state.global.dataProject);
-
-  // useEffect(() => {
-  //   handleGetAllProject();
-  // }, [handleGetAllProject]);
 
   return (
     <>
       {dataProject &&
         dataProject.map((item) => {
           return (
-            <React.Fragment key={item.id}>
+            <div key={item.id}>
               {idShow !== item.id && (
                 <div
                   id={item.id}
@@ -132,7 +117,7 @@ const SwiperHome = React.memo(() => {
                     })}
                 </Swiper>
               </div>
-            </React.Fragment>
+            </div>
           );
         })}
     </>

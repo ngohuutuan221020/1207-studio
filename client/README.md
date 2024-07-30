@@ -1,5 +1,6 @@
 # Getting Started with Create React App
 
+npx sequelize-cli db:migrate
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 npm install --save-dev @babel/plugin-proposal-private-property-in-object
 setupMiddlewares: (middlewares, devServer) => {

@@ -40,9 +40,9 @@ function App() {
               <Route path="/projects" element={<Products />} />
               <Route path="/news" element={<News />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/manage" element={<UploadProject />} />
             </Route>
             <Route path="/ngohuutuan" element={<Tuan />} />
-            <Route path="/manage" element={<UploadProject />} />
           </Routes>
         </BrowserRouter>
       </div>

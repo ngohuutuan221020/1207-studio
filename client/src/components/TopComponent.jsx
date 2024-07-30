@@ -1,5 +1,4 @@
 import React from "react";
-// import bgImg from "../images/72/3.jpg";
 import background1207 from "../assets/background1207.jpg";
 const TopComponent = () => {
   return (
